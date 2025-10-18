@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+option java_package = "com.mst.matt.product.proto";
+option java_multiple_files = true;
+
+package product;
+
+service ProductService {
+  rpc GetProductById(ProductRequest) returns (ProductResponse); // For Async/ListenableFuture
+  rpc ListAllProducts(ListProductsRequest) returns (stream ProductResponse);
+  rpc GetProductStock(ProductStockRequest) returns (ProductStockResponse); // For ListenableFuture
+}
+
+message ProductRequest {
+  string productId = 1;
+}
+
+message ProductResponse {
+  string productId = 1;
+  string name = 2;
+  string description = 3;
+  double price = 4;
+  int32 stockQuantity = 5;
+}
+
+message ListProductsRequest {
+  string category = 1; // Optional filter
+}
+
+message ProductStockRequest {
+  string productId = 1;
+}
+
+message ProductStockResponse {
+  string productId = 1;
+  int32 stockQuantity = 2;
+  string lastUpdated = 3; // Timestamp
+}

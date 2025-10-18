@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+option java_package = "com.mst.matt.order.proto";
+option java_multiple_files = true;
+
+package order;
+
+message OrderRequest {
+  string userId = 1;
+  repeated OrderItem items = 2;
+}
+
+message OrderItem {
+  string productId = 1;
+  int32 quantity = 2;
+  double pricePerUnit = 3;
+}
+
+message OrderResponse {
+  string orderId = 1;
+  string userId = 2;
+  double totalAmount = 3;
+  string orderStatus = 4;
+  string orderDate = 5;
+}
+
+service OrderService {
+  rpc CreateOrder(OrderRequest) returns (OrderResponse); // Unary RPC (server)
+  rpc BatchCreateOrders(stream OrderRequest) returns (BatchOrderResponse); // Client Streaming RPC
+}
+
+message BatchOrderResponse {
+  repeated OrderResponse orders = 1;
+  string batchSummary = 2;
+  int32 successCount = 3;
+  int32 failedCount = 4;
+}

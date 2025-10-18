@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+option java_package = "com.mst.matt.notification.proto";
+option java_multiple_files = true;
+
+package notification;
+
+service NotificationService {
+  rpc StreamNotifications(stream NotificationRequest) returns (stream NotificationResponse);
+}
+
+message NotificationRequest {
+  string userId = 1;
+  string message = 2;
+  string type = 3; // e.g., "INFO", "WARNING", "ERROR"
+}
+
+message NotificationResponse {
+  string notificationId = 1;
+  string userId = 2;
+  string content = 3;
+  string timestamp = 4;
+//  string status = 5; // e.g., "SENT", "DELIVERED", "READ"
+  Status status = 5;
+}
+
+enum Status{
+  SENT = 0;
+  DELIVERED = 1;
+  READ = 2;
+}
