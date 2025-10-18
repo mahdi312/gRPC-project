@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.mst.matt.grpc.dataexchange";
+
+service DataExchangeService {
+  rpc ProcessData (DataRequest) returns (DataResponse);
+  rpc StreamUpdates (UpdateRequest) returns (stream UpdateResponse);
+  rpc UploadData (stream DataChunk) returns (UploadSummary);
+  rpc Chat (stream ChatMessage) returns (stream ChatMessage);
+}
+
+message DataRequest {
+  string input_data = 1;
+  int32 request_id = 2;
+}
+
+message DataResponse {
+  string processed_data = 1;
+  int32 response_id = 2;
+  string status = 3;
+}
+
+message UpdateRequest {
+  string topic = 1;
+  int32 client_id = 2;
+}
+
+message UpdateResponse {
+  string update_content = 1;
+  int64 timestamp = 2;
+}
+
+message DataChunk {
+  int32 chunk_id = 1;
+  bytes content = 2;
+  bool is_last_chunk = 3;
+}
+
+message UploadSummary {
+  int32 total_chunks = 1;
+  int64 total_bytes = 2;
+  string upload_status = 3;
+}
+
+message ChatMessage {
+  string sender = 1;
+  string message = 2;
+  int64 timestamp = 3;
+}

@@ -1,0 +1,37 @@
+syntax = "proto3";
+option java_package = "com.mst.matt.user.proto";
+option java_multiple_files = true;
+
+package user;
+
+service UserService{
+
+  rpc getUserById(UserRequest) returns (UserResponse);
+  rpc registerUser(RegisterRequest) returns (RegisterResponse);
+
+}
+
+message UserRequest {
+  string userId = 1;
+}
+
+message UserResponse {
+  string userId = 1;
+  string username = 2;
+  string email = 3;
+  string firstName = 4;
+  string lastName = 5;
+}
+
+message RegisterRequest{
+  string username = 1;
+  string password = 2;
+  string email = 3;
+}
+
+message RegisterResponse{
+  string userId = 1;
+  string statusMessage = 2;
+  bool success = 3;
+}
+
