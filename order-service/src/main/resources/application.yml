@@ -1,0 +1,28 @@
+server:
+  port: 8083
+
+spring:
+  application:
+    name: order-service
+  cloud:
+    eureka:
+      client:
+        serviceUrl:
+          defaultZone: http://localhost:8761/eureka/
+
+grpc:
+  server:
+    port: 9093
+  client:
+    user-service: # Client configuration for user-service
+      address: 'static://localhost:9091' # Will use Eureka later
+      negotiationType: plaintext
+      enableKeepAlive: true
+      keepAliveTime: 60s
+      keepAliveTimeout: 20s
+#    product-service: # Client configuration for product-service
+#      address: 'static://localhost:9092' # Will use Eureka later
+#      negotiationType: plaintext
+#      enableKeepAlive: true
+#      keepAliveTime: 60s
+#      keepAliveTimeout: 20s
