@@ -20,9 +20,9 @@ grpc:
       enableKeepAlive: true
       keepAliveTime: 60s
       keepAliveTimeout: 20s
-#    product-service: # Client configuration for product-service
-#      address: 'static://localhost:9092' # Will use Eureka later
-#      negotiationType: plaintext
-#      enableKeepAlive: true
-#      keepAliveTime: 60s
-#      keepAliveTimeout: 20s
+    product-service: # Client configuration for product-service
+      address: 'static://localhost:9092' # Will use Eureka later
+      negotiationType: plaintext
+      enableKeepAlive: true
+      keepAliveTime: 60s
+      keepAliveTimeout: 20s
